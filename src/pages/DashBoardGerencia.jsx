@@ -1,13 +1,4 @@
 import React, { Fragment, useEffect, useState, Suspense, lazy } from "react"
-import { MenuSidebarAdmin } from "../componets/Sidebar/sidebar";
-import { HeaderMain } from "../componets/Header";
-import { MenuButton } from "../componets/Buttons/menuButton";
-import { FooterMain } from "../componets/Footer";
-import { SidebarProvider } from "../componets/Sidebar/SidebarContext";
-import { useFetchData } from "../hooks/useFetchData";
-import { useQuery } from "react-query";
-import { get } from "../api/funcRequest";
-
 
 
 const ActionPesquisaEtiquetasVolumes = lazy(() => import("../componets/Gerencia/Components/ActionEtiquetasVolumes/actionPesquisaEtiquetasVolumes").then(module => ({ default: module.ActionPesquisaEtiquetasVolumes })));
@@ -15,8 +6,6 @@ const ActionPesquisaEtiquetasVolumes = lazy(() => import("../componets/Gerencia/
 export const DashBoardGerencia = () => {
 
   const [componentToShow, setComponentToShow] = useState("");
-
-
 
 
   let component = null;
