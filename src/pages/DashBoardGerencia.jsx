@@ -47,10 +47,7 @@ export const DashBoardGerencia = () => {
               </div>
             </main>
 
-            <Fragment>
-              <MenuButton />
-              <FooterMain />
-            </Fragment>
+       
           </div>
         </div>
       </div>
