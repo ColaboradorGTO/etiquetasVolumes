@@ -21,7 +21,20 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
   const [quantidade, setQuantidade] = useState(0);
   const [modalImprimir, setModalImprimir] = useState(false);
   const [dadosAcumuladorEtiquetas, setDadosAcumuladorEtiquetas] = useState([]);
- 
+  const [idFuncionario] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('idFuncionario');
+  });
+
+  const [idEmpresa] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('idEmpresa');
+  });
+  const [nomeEmpresa] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('noFantasia');
+  });
+
   const { data: dadosEmpresas = [], error: errorEmpresas, isLoading: isLoadingEmpresas, refetch } = useQuery(
     'empresas',
     async () => {
@@ -39,7 +52,7 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
       numeroOT,
       descricao,
       categoria,
-      empresaOrigem: empresaOrigem,
+      empresaOrigem: nomeEmpresa,
       empresaDestinoSelecionada: empresaDestinoSelecionada,
       solicitanteSelecionado,
       quantidade: quantidade
@@ -117,16 +130,9 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
 
         InputSelectMarcasComponent={InputSelectAction}
         labelSelectMarcas={"Empresa Origem"}
-        optionsMarcas={[
-          {value: '', label: 'Selecione'},
-          ...dadosEmpresas.map((item) => ({
-            value: item.NOFANTASIA,
-            label: item.NOFANTASIA,
-          }))
-        ]}
-        // defaultValueSelectMarca={{ value: usuarioLogado?.NOFANTASIA, label: usuarioLogado?.NOFANTASIA }}
-        valueSelectMarca={empresaOrigem}
-        onChangeSelectMarcas={(e) => setEmpresaOrigem(e.value)}
+        defaultValueSelectMarca={{ value: nomeEmpresa, label: nomeEmpresa }}
+        isDisabledMarca={true}
+
 
         InputFieldORComponent={InputField}
         labelInputFieldOR={"Nº OR "}
