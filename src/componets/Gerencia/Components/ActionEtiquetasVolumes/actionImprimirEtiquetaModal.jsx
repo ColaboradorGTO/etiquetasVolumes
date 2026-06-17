@@ -10,8 +10,7 @@ import Swal from "sweetalert2";
 import Modal from 'react-bootstrap/Modal';
 import { HeaderModal } from "../../../Modais/HeaderModal/HeaderModal";
 import { FooterModal } from "../../../Modais/FooterModal/footerModal";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-
+ 
 const chunkArray = (array, size) => {
   const chunks = [];
   for (let i = 0; i < array.length; i += size) {
@@ -27,6 +26,13 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
   const handlePrintZPL = async () => {
     try {
       let etiquetasZPL = '';
+      const zplResetConfiguracao = `
+        ^XA
+        ^MD0
+        ~SD07
+        ^JUS
+        ^XZ
+      `;
 
       for (let itemIndex = 0; itemIndex < dadosAcumuladorEtiquetas.length; itemIndex++) {
         let {
@@ -51,7 +57,7 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
               ^CI28
               
               ^FO560,0
-              ^GB150,1000,150^FS
+              ^GB150,1200,250^FS
 
               ^FO550,${titulo == 'REMANEJAMENTO' ? '120' : '250'}
               ^FR
@@ -82,7 +88,7 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
       }
 
 
-      await enviarZPLParaImpressora(etiquetasZPL);
+  await enviarZPLParaImpressora(`${etiquetasZPL}\n${zplResetConfiguracao}`);
 
 
     } catch (error) {
@@ -120,43 +126,28 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
         className="modal fade"
         role="dialog"
       >
-
+        <HeaderModal
+          title={"Etiquetas"}
+          subTitle={"Etiquetas"}
+          handleClose={handleClose}
+        />
         <Modal.Body>
-          <header className="row" style={{ justifyContent: "space-between", marginLeft: "30px" }}>
-            <div>
-              <h1 className="title-modal">Etiquetas</h1>
-              
-            </div>
-
+          <header className="row" style={{ justifyContent: "flex-start", marginLeft: "30px" }}>
             <div className="d-flex gap-2">
-              <div style={{ paddingBottom: '20px', paddingRight: '10px' }}>
-
-                <ButtonTypeModal
-                  textButton={"Fechar"}
-                  onClickButtonType={handleClose}
-                  cor={"danger"}
-                  Icon={AiOutlineCloseCircle}
-
-                  iconSize={20}
-                />
-              </div>
-              <div >
-
-                <ButtonTypeModal
-                  textButton={"Imprimir"}
-                  onClickButtonType={handlePrintZPL}
-                  cor={"info"}
-                  Icon={MdOutlineLocalPrintshop}
-                  iconSize={20}
-                />
-              </div>
+              <ButtonTypeModal
+                textButton={"Imprimir"}
+                onClickButtonType={handlePrintZPL}
+                cor={"info"}
+                Icon={MdOutlineLocalPrintshop}
+                iconSize={20}
+              />
             </div>
           </header>
 
           <div ref={dataTableRef}>
             {etiquetasPorPagina.map((pagina, pageIndex) => (
               // <div key={pageIndex} className="etiqueta-page" style={{ display: 'block', margin: '30px' }}>
-              <div key={pageIndex} className="" style={{ display: 'block', margin: '0px' }}>
+              <div key={pageIndex} className="etiqueta-page" style={{ display: 'block', margin: '0px' }}>
                 {pagina.map((etiqueta, etiquetaIndex) => (
                   <div className="etiqueta-page-remanejamento" style={{ marginBottom: '30px', width: '100%' }} key={etiquetaIndex}>
                     <div className="card border-dark w-100 p-0">
