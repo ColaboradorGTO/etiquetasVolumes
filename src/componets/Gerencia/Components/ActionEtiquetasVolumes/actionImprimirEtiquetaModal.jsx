@@ -47,7 +47,12 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
           solicitanteSelecionado,
           quantidade
         } = dadosAcumuladorEtiquetas[itemIndex]
-        etiquetasZPL += `
+
+        const qtd = Number(quantidade) || 1;
+
+        for (let i = 0; i < qtd; i++) {
+
+          etiquetasZPL += `
           ^XA~TA000~JSN^LT0^MNW^MTT^PON^PMN^LH0,0^JMA^PR2,2~SD15^JUS^LRN^CI0^XZ
           ^XA
           ^MMT
@@ -81,11 +86,11 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
           ^FO80,20^FB980,2,1,L,0^FDDESTINATÁRIO: ${empresaDestino}^FS
 
           ^CF0,40
-          ^FO40,750^FDQTD: ${itemIndex + 1}/${quantidade}^FS
+          ^FO40,550^FDQTD: ${i + 1}/${qtd}^FS
 
           ^XZ
         `;
-
+        }
       }
 
 
@@ -132,7 +137,7 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
           <header className="row" style={{ justifyContent: "space-between", marginLeft: "30px" }}>
             <div>
               <h1 className="title-modal">Etiquetas</h1>
-              
+
             </div>
 
             <div className="d-flex gap-2">
