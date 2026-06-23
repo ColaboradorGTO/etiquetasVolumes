@@ -94,7 +94,7 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
       }
 
 
-      await enviarZPLParaImpressora(`${etiquetasZPL}\n${zplResetConfiguracao}`);
+      await enviarZPLParaImpressora(`${etiquetasZPL}`);
 
 
     } catch (error) {
