@@ -91,7 +91,7 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
           ^XZ
         `;
         }
-      }
+      } 
 
 
       await enviarZPLParaImpressora(`${etiquetasZPL}`);
