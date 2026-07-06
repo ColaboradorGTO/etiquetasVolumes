@@ -146,14 +146,14 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
 
         InputFieldNumeroNFComponent={InputField}
         labelInputFieldNumeroNF={"Descrição"}
-        valueInputFieldNumeroNF={descricao.toUpperCase()}
-        onChangeInputFieldNumeroNF={(e) => setDescricao(e.target.value)}
+        valueInputFieldNumeroNF={descricao}
+        onChangeInputFieldNumeroNF={(e) => setDescricao(e.target.value.toUpperCase())}
         placeHolderInputFieldNumeroNF={"Descrição"}
 
         InputFieldDescricaoComponent={InputField}
         labelInputFieldDescricao={"Categoria"}
-        valueInputFieldDescricao={categoria.toUpperCase()}
-        onChangeInputFieldDescricao={(e) => setCategoria(e.target.value)}
+        valueInputFieldDescricao={categoria}
+        onChangeInputFieldDescricao={(e) => setCategoria(e.target.value.toUpperCase())}
         placeHolderInputFieldDescricao={"Categoria"}
 
         InputFieldQuantidadeComponent={InputField}
