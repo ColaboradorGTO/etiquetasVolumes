@@ -9,6 +9,7 @@ import { InputSelectAction } from "../../../Inputs/InputSelectAction"
 import { ActionImprimirEtiquetaModal } from "./actionImprimirEtiquetaModal"
 import { useEffect } from "react"
 
+
 export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
   const [tipoSelecionado, setTipoSelecionado] = useState('DEVOLUÇÃO');
   const [numeroOR, setNumeroOR] = useState(0);
