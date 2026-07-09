@@ -54,13 +54,14 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
       descricao,
       categoria,
       empresaOrigem: nomeEmpresa,
-      empresaDestinoSelecionada: empresaDestinoSelecionada || '0101 - TO - CD (Depósito)',
+      empresaDestino: empresaDestinoSelecionada || '0101 - TO - CD (Depósito)',
       solicitanteSelecionado,
       quantidade: quantidade
     }];
     setDadosAcumuladorEtiquetas(dados);
     setModalImprimir(true);
   }
+  console.log(empresaDestinoSelecionada, 'empresaDestinoSelecionada')
 
   const options = [
     { value: 'DEVOLUÇÃO', label: 'DEVOLUÇÃO' },

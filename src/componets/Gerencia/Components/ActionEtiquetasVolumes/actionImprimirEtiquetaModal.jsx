@@ -105,21 +105,21 @@ export const ActionImprimirEtiquetaModal = ({ show, handleClose, dadosAcumulador
 
   const etiquetas = dadosAcumuladorEtiquetas.flatMap((item) => {
     const quantidade = Number(item.quantidade) || 1;
-
+    console.log(item, 'item')
     return Array.from({ length: quantidade }, (_, i) => ({
       titulo: item.tipoSelecionado,
       descricao: item.descricao,
       categoria: item.categoria,
       numeroOR: item.numeroOR || 'N/A',
       numeroOT: item.numeroOT || 'N/A',
-      empresaDestino: item.tipoSelecionado == 'DEVOLUÇÃO' ? " 0101 - TO - CD (DEPÓSITO)" : item.empresaDestinoSelecionada,
+      empresaDestino: item.tipoSelecionado == 'DEVOLUÇÃO' ? " 0101 - TO - CD (DEPÓSITO)" : item.empresaDestino,
       empresaOrigem: item.empresaOrigem,
       solicitante: item.solicitanteSelecionado,
       quantidade,
       copiaAtual: i + 1
     }))
   });
-
+  console.log(dadosAcumuladorEtiquetas, 'dadosAcumuladorEtiquetas')
   const etiquetasPorPagina = chunkArray(etiquetas, 3);
   const totalPaginas = etiquetasPorPagina.length;
 
