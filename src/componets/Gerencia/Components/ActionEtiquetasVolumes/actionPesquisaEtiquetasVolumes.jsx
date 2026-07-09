@@ -8,6 +8,7 @@ import { useQuery } from "react-query"
 import { InputSelectAction } from "../../../Inputs/InputSelectAction"
 import { ActionImprimirEtiquetaModal } from "./actionImprimirEtiquetaModal"
 import { useEffect } from "react"
+import Swal from "sweetalert2"
 
 
 export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
@@ -16,7 +17,7 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
   const [numeroOT, setNumeroOT] = useState(0);
   const [descricao, setDescricao] = useState('');
   const [categoria, setCategoria] = useState('');
-  const [empresaDestinoSelecionada, setEmpresaDestinoSelecionada] = useState('0101 - TO - CD (Depósito)');
+  const [empresaDestinoSelecionada, setEmpresaDestinoSelecionada] = useState(null);
   const [empresaOrigem, setEmpresaOrigem] = useState('');
   const [solicitanteSelecionado, setSolicitanteSelecionado] = useState('');
   const [quantidade, setQuantidade] = useState(0);
@@ -47,6 +48,14 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
   );
 
   const handleImprimir = () => {
+    if(tipoSelecionado == 'REMANEJAMENTO' && empresaDestinoSelecionada == null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro',
+        text: 'Selecione a empresa destino novamente para remanejamento.',
+      })
+      return;
+    }
     const dados = [{
       tipoSelecionado,
       numeroOR,
@@ -61,7 +70,7 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
     setDadosAcumuladorEtiquetas(dados);
     setModalImprimir(true);
   }
-  console.log(empresaDestinoSelecionada, 'empresaDestinoSelecionada')
+
 
   const options = [
     { value: 'DEVOLUÇÃO', label: 'DEVOLUÇÃO' },
@@ -75,14 +84,22 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
     { value: 'Diretoria', label: 'Diretoria' },
   ]
 
-  useEffect(() => {
-    if (tipoSelecionado === 'DEVOLUÇÃO') {
+  // useEffect(() => {
+  //   if (tipoSelecionado == 'DEVOLUÇÃO') {
+  //     setSolicitanteSelecionado('');
+  //     setEmpresaDestinoSelecionada('');
+  //     console.log(empresaDestinoSelecionada, 'empresaDestinoSelecionada useEffect')
+  //   }
+  // }, [tipoSelecionado])
+  console.log(empresaDestinoSelecionada, 'empresaDestinoSelecionada ')
+
+  const handleChangeTipoSelecionado = (e) => {
+    setTipoSelecionado(e.value);
+    if (e.value == 'DEVOLUÇÃO') {
       setSolicitanteSelecionado('');
       setEmpresaDestinoSelecionada('');
     }
-  }, [tipoSelecionado, setSolicitanteSelecionado, setEmpresaDestinoSelecionada])
-
-
+  }
   return (
 
     <Fragment>
@@ -100,7 +117,7 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
         }))}
         valueSelectEmpresa={tipoSelecionado}
         defaultValueSelectEmpresa={{ value: 'DEVOLUÇÃO', label: 'DEVOLUÇÃO' }}
-        onChangeSelectEmpresa={(e) => setTipoSelecionado(e.value)}
+        onChangeSelectEmpresa={handleChangeTipoSelecionado}
 
         InputSelectGrupoComponent={InputSelectAction}
         labelSelectGrupo={"Solicitante"}
@@ -125,9 +142,9 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
             label: item.NOFANTASIA,
           }))
         ]}
-        valueSelectSubGrupo={empresaDestinoSelecionada}
+        valueSelectSubGrupo={empresaDestinoSelecionada ? { value: empresaDestinoSelecionada, label: empresaDestinoSelecionada } : null}
         defaultValueSelectSubGrupo={{ value: '101', label: '0101 - TO - CD (Depósito)' }}
-        onChangeSelectSubGrupo={(e) => setEmpresaDestinoSelecionada(e.value)}
+        onChangeSelectSubGrupo={(e) => setEmpresaDestinoSelecionada(e)}
         styleSubGrupo={tipoSelecionado == 'DEVOLUÇÃO'}
 
         InputSelectMarcasComponent={InputSelectAction}
