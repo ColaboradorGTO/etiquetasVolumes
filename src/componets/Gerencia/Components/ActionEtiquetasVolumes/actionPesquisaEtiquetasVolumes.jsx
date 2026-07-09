@@ -54,7 +54,7 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
       descricao,
       categoria,
       empresaOrigem: nomeEmpresa,
-      empresaDestinoSelecionada: '0101 - TO - CD (Depósito)',
+      empresaDestinoSelecionada: empresaDestinoSelecionada || '0101 - TO - CD (Depósito)',
       solicitanteSelecionado,
       quantidade: quantidade
     }];
