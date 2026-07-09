@@ -47,7 +47,7 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
     { enabled: true, staleTime: 60 * 60 * 1000, }
   );
 
-  console.log(empresaDestinoSelecionada?.value, 'empresaDestinoSelecionada imprimir')
+ 
   const handleImprimir = () => {
     if(tipoSelecionado == 'REMANEJAMENTO' && (empresaDestinoSelecionada?.value == null || empresaDestinoSelecionada?.value == undefined || empresaDestinoSelecionada?.value == '')){ 
       Swal.fire({
@@ -92,7 +92,7 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
   //     console.log(empresaDestinoSelecionada, 'empresaDestinoSelecionada useEffect')
   //   }
   // }, [tipoSelecionado])
-  console.log(empresaDestinoSelecionada, 'empresaDestinoSelecionada ')
+
 
   const handleChangeTipoSelecionado = (e) => {
     setTipoSelecionado(e.value);
