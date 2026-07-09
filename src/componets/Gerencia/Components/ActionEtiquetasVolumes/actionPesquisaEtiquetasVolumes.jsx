@@ -47,8 +47,9 @@ export const ActionPesquisaEtiquetasVolumes = ({ usuarioLogado }) => {
     { enabled: true, staleTime: 60 * 60 * 1000, }
   );
 
+  console.log(empresaDestinoSelecionada?.value, 'empresaDestinoSelecionada imprimir')
   const handleImprimir = () => {
-    if(tipoSelecionado == 'REMANEJAMENTO' && empresaDestinoSelecionada == null) {
+    if(tipoSelecionado == 'REMANEJAMENTO' && (empresaDestinoSelecionada?.value == null || empresaDestinoSelecionada?.value == undefined || empresaDestinoSelecionada?.value == '')){ 
       Swal.fire({
         icon: 'error',
         title: 'Erro',
